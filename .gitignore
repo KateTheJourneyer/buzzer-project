@@ -1,0 +1,4 @@
+.vscode
+*.kdev*
+.directory
+.kdev4
