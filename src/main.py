@@ -1,11 +1,15 @@
-import os, sys
+import os, sys, simpleaudio, signal, queue
 
-class SoundBoard:
+# Linking all modules
+import Daemoniser
+
+class SoundBoardDaemon:
+
 	@staticmethod
 	def main(args: list[str]) -> None:
-		# Do stuff here
-		
-		return
+		# TODO: stuff here
+
+		break
 
 if __name__=="__main__":
-	SoundBoard.main(sys.argv[:1])
+	SoundBoardDaemon.main(sys.argv[:1])
