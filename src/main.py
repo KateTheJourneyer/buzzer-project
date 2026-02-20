@@ -1,6 +1,11 @@
-import os, sys, simpleaudio, signal, queue
+import os
+import queue
+import signal
+import sys
 
-# Linking all modules
+from pydantic import BaseModel
+import simpleaudio
+
 import Daemoniser
 
 class SoundBoardDaemon:
@@ -9,7 +14,7 @@ class SoundBoardDaemon:
 	def main(args: list[str]) -> None:
 		# TODO: stuff here
 
-		break
+		pass
 
 if __name__=="__main__":
 	SoundBoardDaemon.main(sys.argv[:1])

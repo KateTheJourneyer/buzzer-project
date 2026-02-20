@@ -1,7 +1,14 @@
 '''
 Standalone class to handle daemonisation.
 '''
-import os, signal, sys
+
+from abc import ABC, abstractmethod
+import os
+import signal
+import sys
+
+import typing
+from pydantic import BaseModel
 
 class Daemoniser:
 	@staticmethod
@@ -14,19 +21,21 @@ class Daemoniser:
 
 		Daemoniser.__forkAndExit()
 		os.setsid()
+		Daemoniser.__forkAndExit()
 
 	@staticmethod
 	def __resetSignals() -> None:
-		# Essentially 
+		# Clear signal handlers
 		for sig in range(1, signal.NSIG): # Iterate via avalible signums
 			try:
-				signal.signal(sig, signal.SIG_DFL) #TODO: Explain this
-			except (OSError, RuntimeError): # Py version of catch
+				signal.signal(sig, signal.SIG_DFL) # Clear anything that pop up
+			except (OSError, RuntimeError):
 				pass
 				
 	@staticmethod
-	def __resetSignalMask() -> None: #TODO: Explain this
-		signal.pthread_sigmask(signal.SIG_SETMASK,[int])
+	def __resetSignalMask() -> None:
+		signal.pthread_sigmask(signal.SIG_SETMASK,[])
+		return
 
 	@staticmethod
 	def __sanitiseEnv() -> None:
@@ -37,7 +46,7 @@ class Daemoniser:
 	@staticmethod
 	def __forkAndExit() -> None:
 		# This will immediately exit parent and keep child running
-		pid: int = os.fork
+		pid: int = os.fork()
 		if pid > 0:
 			os._exit(0)
 	@staticmethod
